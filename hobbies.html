@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies – Mo CHEN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+    <style>
+        /* MiSans Font Faces */
+        @font-face {
+          font-family: 'MiSans-Bold';
+          src: url('assets/fonts/MiSans-Bold.woff2') format('woff2'),
+               url('assets/fonts/MiSans-Bold.woff') format('woff');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: 'MiSans-Regular';
+          src: url('assets/fonts/MiSans-Regular.woff2') format('woff2'),
+               url('assets/fonts/MiSans-Regular.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: 'MiSans-Light';
+          src: url('assets/fonts/MiSans-Light.woff2') format('woff2'),
+               url('assets/fonts/MiSans-Light.woff') format('woff');
+          font-weight: 300;
+          font-style: normal;
+          font-display: swap;
+        }
+        /* Global styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-family: 'MiSans-Regular', sans-serif; }
+        body { overflow-x: hidden; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+        }
+        nav .logo {
+            font-family: 'MiSans-Bold', sans-serif;
+            font-size: 1.5rem; font-weight: bold;
+            white-space: nowrap; color: #434343;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+        nav .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 9999px;
+            background-color: transparent;
+            border: 2px solid transparent;
+            backdrop-filter: blur(0);
+            box-shadow: none;
+            transition:
+                background-color 0.4s ease,
+                border-color 0.4s ease,
+                backdrop-filter 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li a {
+            text-decoration: none; color: #333; font-weight: 500;
+            white-space: nowrap;
+            font-family: 'MiSans-Regular', sans-serif;
+        }
+
+        /* Scrolled navbar */
+        nav.scrolled {
+            transition: none;
+        }
+        nav.scrolled .container {
+            background-color: rgba(255,255,255,0.55);
+            border: 2px solid rgba(255,255,255,0.55);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+        }
+        nav.scrolled .logo,
+        nav.scrolled #lang-toggle {
+            opacity: 0; transform: translateY(-10px);
+        }
+
+        nav #lang-toggle {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container { width: 100%; max-width: none; padding: 0 2rem; margin: 0 auto; }
+        section { padding: 6rem 2rem; }
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: 'MiSans-Bold', sans-serif;
+        }
+
+        /* Hobby sections */
+        .hobby-section {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+        .hobby-section h3 {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-family: 'MiSans-Bold', sans-serif;
+        }
+
+        /* Photography gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            font-family: 'MiSans-Light', sans-serif;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Video section */
+        .video-section {
+            text-align: center;
+        }
+        .video-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: #4a5e26;
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            font-family: 'MiSans-Bold', sans-serif;
+        }
+        .video-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            background: #3a4a1f;
+        }
+        .video-icon {
+            width: 30px;
+            height: 30px;
+            color: white;
+        }
+
+        /* Language toggle styles */
+        .zh { display: none; }
+        .show-zh .en { display: none; }
+        .show-zh .zh { display: inline; font-family: 'MiSans-Regular', sans-serif; }
+
+        nav button#lang-toggle {
+            background: transparent;
+            border: none;
+            padding: 0.25rem;
+            cursor: pointer;
+            color: #333;
+        }
+        nav button#lang-toggle svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            .hobby-section {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/theme-switcher.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Mo CHEN</div>
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="index.html#Self-Introduction">
+                        <span class="en">Home</span><span class="zh">首页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#Project">
+                        <span class="en">Projects</span><span class="zh">项目</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="blog.html">
+                        <span class="en">Blog</span><span class="zh">博客</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="hobbies.html">
+                        <span class="en">Hobbies</span><span class="zh">爱好</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#contact">
+                        <span class="en">Contact</span><span class="zh">联系</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button id="lang-toggle" aria-label="Toggle language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 0 20"/>
+                <path d="M12 2a15.3 15.3 0 0 0 0 20"/>
+            </svg>
+        </button>
+    </nav>
+
+    <section id="hobbies">
+        <div class="container">
+            <h2><span class="en">My Hobbies</span><span class="zh">我的爱好</span></h2>
+
+            <div class="hobby-section">
+                <h3><span class="en">Photography</span><span class="zh">摄影</span></h3>
+                <div class="gallery">
+                    <div class="gallery" style="display: flex; overflow-x: auto; gap: 20px; padding-bottom: 10px;">
+                        <div class="gallery-item" style="flex: 0 0 auto;">
+                            <img src="assets/IMG_5903.JPG" alt="Nature Photography" style="width: auto; height: 250px; object-fit: contain;">
+                        </div>
+                        <div class="gallery-item" style="flex: 0 0 auto;">
+                            <img src="assets/IMG_6545.JPG" alt="Street Photography" style="width: auto; height: 250px; object-fit: contain;">
+                        </div>
+                        <div class="gallery-item" style="flex: 0 0 auto;">
+                            <img src="assets/IMG_3572.JPG" alt="Portrait Photography" style="width: auto; height: 250px; object-fit: contain;">
+                        </div>
+                        <div class="gallery-item" style="flex: 0 0 auto;">
+                            <img src="assets/IMG_4044.JPG" alt="Landscape Photography" style="width: auto; height: 250px; object-fit: contain;">
+                        </div>
+                        <div class="gallery-item" style="flex: 0 0 auto;">
+                            <img src="assets/dji_export_20250504_photo_0001.JPG" alt="Architecture Photography" style="width: auto; height: 250px; object-fit: contain;">
+                        </div>
+                        <div class="gallery-item" style="flex: 0 0 auto;">
+                            <img src="assets/IMG_7266.JPG" alt="Macro Photography" style="width: auto; height: 250px; object-fit: contain;">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hobby-section video-section">
+                <h3><span class="en">Video</span><span class="zh">视频</span></h3>
+                <a href="https://b23.tv/2yhRcZx" class="video-button" target="_blank">
+                    <svg class="video-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                    <span class="en">Watch My Videos</span><span class="zh">观看我的视频</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document
+            .getElementById('lang-toggle')
+            .addEventListener('click', () => {
+                document.documentElement.classList.toggle('show-zh');
+            });
+    </script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const threshold = nav.offsetHeight;
+            if (window.scrollY > threshold) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+    </script>
+    <script src="assets/js/theme-switcher.js"></script>
+</body>
+</html>

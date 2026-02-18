@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog - Mo CHEN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    /* Copy in your site’s global/reset/nav styles here… */
+    /* MiSans Font Faces */
+    @font-face {
+      font-family: 'MiSans-Bold';
+      src: url('assets/fonts/MiSans-Bold.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MiSans-Regular';
+      src: url('assets/fonts/MiSans-Regular.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MiSans-Light';
+      src: url('assets/fonts/MiSans-Light.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Light.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-family: 'MiSans-Regular', sans-serif; }
+    body { overflow-x: hidden; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+      transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+    }
+    nav .logo {
+      font-family: 'MiSans-Bold', sans-serif;
+      font-size: 1.5rem; font-weight: bold;
+      white-space: nowrap; color: #434343;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      position: relative;
+      z-index: 1;
+    }
+    /* Static centered nav links */
+    nav .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+
+      /* keep pill geometry but hide visuals */
+      padding: 1rem 2rem;
+      max-width: 500px;
+      margin: 0 auto;
+
+      border-radius: 9999px;
+      background-color: transparent;
+      border: 2px solid transparent;
+      backdrop-filter: blur(0);
+      box-shadow: none;
+
+      transition:
+        background-color 0.4s ease,
+        border-color 0.4s ease,
+        backdrop-filter 0.4s ease,
+        box-shadow 0.4s ease;
+    }
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none; color: #333; font-weight: 500;
+      white-space: nowrap;
+      font-family: 'MiSans-Regular', sans-serif;
+    }
+
+    /* Scrolled navbar */
+    /* keep nav layout unchanged – pill handled by .container */
+    nav.scrolled {
+      transition: none;
+    }
+    nav.scrolled .container {
+      background-color: rgba(255,255,255,0.55);
+      border: 2px solid rgba(255,255,255,0.55);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+    }
+    nav.scrolled .logo,
+    nav.scrolled #lang-toggle {
+      opacity: 0; transform: translateY(-10px);
+    }
+
+    nav #lang-toggle {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container { width: 100%; max-width: none; padding: 0 2rem; margin: 0 auto; }
+    section { padding: 6rem 2rem; }
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      font-family: 'MiSans-Bold', sans-serif;
+    }
+    article { max-width: 800px; margin: 0 auto 4rem; }
+    article h3 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      font-family: 'MiSans-Bold', sans-serif;
+    }
+    article h3 small,
+    article h3 .zh {
+      font-family: 'MiSans-Regular', sans-serif;
+      font-weight: normal;
+    }
+    article time {
+      display: block;
+      font-size: 0.875rem;
+      color: #666;
+      margin-bottom: 1rem;
+      font-family: 'MiSans-Light', sans-serif;
+    }
+    article p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-family: 'MiSans-Light', sans-serif;
+    }
+    article a.read-more {
+      display: inline-block; text-decoration: none;
+      color: #4a5e26; font-weight: 600;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s ease;
+      font-family: 'MiSans-Bold', sans-serif;
+    }
+    article a.read-more:hover {
+      border-color: #4a5e26;
+    }
+
+    /* —— language-toggle styles —— */
+    /* by default hide Chinese */
+    .zh { display: none; }
+    /* if .show-zh is on <html>, swap */
+    .show-zh .en { display: none; }
+    .show-zh .zh { display: inline; }
+    /* —— end language-toggle —— */
+
+    /* reset toggle button & size the icon */
+    nav button#lang-toggle {
+      background: transparent;
+      border: none;
+      padding: 0.25rem;
+      cursor: pointer;
+      color: #333;               /* icon inherits this */
+    }
+    nav button#lang-toggle svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/theme-switcher.css">
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Mo CHEN</div>
+    <div class="container">
+      <ul>
+        <li>
+          <a href="index.html#Self-Introduction">
+            <span class="en">Home</span><span class="zh">首页</span>
+          </a>
+        </li>
+        <li>
+          <a href="index.html#Project">
+            <span class="en">Projects</span><span class="zh">项目</span>
+          </a>
+        </li>
+        <li>
+          <a href="blog.html">
+            <span class="en">Blog</span><span class="zh">博客</span>
+          </a>
+        </li>
+        <li>
+          <a href="hobbies.html">
+            <span class="en">Hobbies</span><span class="zh">兴趣爱好</span>
+          </a>
+        </li>
+        <li>
+          <a href="main.html#contact">
+            <span class="en">Contact</span><span class="zh">联系</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- language toggle button -->
+    <button id="lang-toggle" aria-label="Toggle language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 0 20"/>
+        <path d="M12 2a15.3 15.3 0 0 0 0 20"/>
+      </svg>
+    </button>
+  </nav>
+
+  <section id="blog-list">
+    <div class="container">
+      <h2><span class="en">Blog</span><span class="zh">博客</span></h2>
+
+      <article>
+        <h3>
+          <span class="en">AcAgent: An Academic Decision Making Assistant Empowered by Large Language Model Based Multi-Agent-System</span><br>
+          <small><span class="zh">AcAgent: 基于大语言模型的多智能体学业决策助手</span></small>
+        </h3>
+        <time datetime="2025-06-01">Feb 18, 2026</time>
+        <p>
+          <span class="en"> A new paradigm for academic decision making assistance with Large Language Models. This LLM-based framework applied multiple engineering techniques to enhance its performance, including multi-agent-system, retrieval augmented generation (RAG) and prompt engineering.</span><br>
+          <span class="zh">一个基于大语言模型的多智能体学业决策助手的新范式。该基于LLM的心框架应用了多种工程技巧来提升其性能，包括多智能体系统、检索增强生成（RAG）和提示词工程。</span>
+        </p>
+        <a class="read-more" href="acagent.html">
+          <span class="en">Read more →</span><span class="zh">阅读更多 →</span>
+        </a>
+      </article>
+
+      <article>
+        <h3>
+          <span class="en">AlignChair: A Multi-Agent System for Academic Conference Management</span><br>
+          <small><span class="zh">AlignChair：学术会议管理的多智能体系统</span></small>
+        </h3>
+        <time datetime="2025-05-20">To be released</time>
+        <p>
+          <span class="en">To be released</span><br>
+          <span class="zh">即将更新。</span>
+        </p>
+        <a class="read-more" href="alignchair.html">
+          <span class="en">To be released →</span><span class="zh">即将更新 →</span>
+        </a>
+      </article>
+
+      <article>
+        <h3>
+          <span class="en">A Possible Pathway to Achieve Emotional AI</span><br>
+          <small><span class="zh">实现情感 AI 的可能途径</span></small>
+        </h3>
+        <time datetime="2025-05-20">May 20, 2025</time>
+        <p>
+          <span class="en">To be released</span><br>
+          <span class="zh">即将更新。</span>
+        </p>
+        <a class="read-more" href="/blog/A Possible Pathway to Achieve Emotional AI">
+          <span class="en">To be released →</span><span class="zh">即将更新 →</span>
+        </a>
+      </article>
+      <!-- Repeat <article> blocks for each post -->
+    </div>
+  </section>
+
+  <script>
+    document
+      .getElementById('lang-toggle')
+      .addEventListener('click', () => {
+        document.documentElement.classList.toggle('show-zh');
+      });
+  </script>
+  <script>
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      const threshold = nav.offsetHeight;
+      if (window.scrollY > threshold) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
+  <script src="assets/js/theme-switcher.js"></script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  --nav-scrolled-bg: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #f0f0f0;
+  --nav-bg: rgba(26, 26, 26, 0.6);
+  --nav-scrolled-bg: rgba(26, 26, 26, 0.55);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Override existing hardcoded colors if necessary */
+[data-theme="dark"] nav {
+  background-color: var(--nav-bg);
+}
+
+[data-theme="dark"] nav.scrolled {
+    background-color: transparent;
+}
+
+[data-theme="dark"] nav ul li a {
+  color: #f0f0f0;
+}
+
+[data-theme="dark"] nav.scrolled .container {
+  background-color: var(--nav-scrolled-bg);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .logo {
+  color: #f0f0f0 !important;
+}
+
+[data-theme="dark"] section:nth-of-type(even) {
+  background-color: #252525 !important;
+  color: #f0f0f0;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] section:nth-of-type(odd) {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] section:not(#hero) h2,
+[data-theme="dark"] section:not(#hero) p,
+[data-theme="dark"] section:not(#hero) li, 
+[data-theme="dark"] section:not(#hero) span:not(.en):not(.zh) {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] a {
+  color: #6fa350;
+}
+
+[data-theme="dark"] .cta-button,
+[data-theme="dark"] .video-button {
+  color: #ffffff !important;
+}
+
+/* Theme Switcher Button and Panel */
+#theme-switcher-wrapper {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Initial state: circle */
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px; /* Max roundness for capsule shape */
+  background-color: var(--bg-color);
+  border: 2px solid var(--text-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: width 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+/* But there is a slight issue with borders? 
+   Border is 2px. 
+   Wrapper width 10.5rem is content-box because box-sizing: content-box (default)?
+   Wait, I set box-sizing: border-box in #theme-switcher-wrapper 
+   Width includes border.
+   So internal width is 10.5rem - 4px.
+   3 buttons of 3.5rem = 10.5rem. 
+   Buttons will shrink or overflow if wrapper is smaller.
+   Let's check wrapper width again. */
+   
+#theme-switcher-wrapper:hover {
+  width: 10.5rem; /* 3.5 * 3 */
+  justify-content: flex-start; /* Ensure left alignment */
+}
+
+/* Make sure buttons fit */
+.theme-btn {
+  width: 3.5rem;
+  /* ... */
+}
+
+/* Adjust indicator left if border-box affects it */
+/* If box-sizing: border-box, width is 10.5rem total.
+   Internal width is ~10.25rem.
+   Buttons take 3.5rem. 3 * 3.5 = 10.5. They won't fit exactly.
+   Let's make wrapper content-box so 10.5 is inner width. */
+   
+#theme-switcher-wrapper {
+  /* ... */
+  box-sizing: content-box; /* Width is inner width + padding */
+  /* Remove padding so it's just buttons */
+  padding: 0;
+  /* ... */
+}
+
+#theme-switcher-wrapper:hover {
+  /* ... */
+  width: 10.5rem; 
+}
+
+/* Common button styles */
+.theme-btn {
+  width: 3.5rem;
+  height: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+  flex-shrink: 0; 
+}
+
+/* Collapsed State: Only show active button, centered */
+#theme-switcher-wrapper:not(:hover) .theme-btn:not(.active) {
+  display: none;
+}
+
+#theme-switcher-wrapper:not(:hover) .theme-btn.active {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  /* Ensure it is perfectly centered in the circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Expanded State: Show all buttons in order */
+#theme-switcher-wrapper:hover .theme-btn {
+  display: flex;
+  animation: descent-in 0.4s ease forwards;
+  opacity: 0; /* Start hidden for animation */
+}
+
+/* Stagger animation for effect */
+#theme-switcher-wrapper:hover .theme-btn:nth-child(2) { animation-delay: 0.05s; } /* Light (index 2 because indicator is 1) */
+#theme-switcher-wrapper:hover .theme-btn:nth-child(3) { animation-delay: 0.1s; }  /* Dark */
+#theme-switcher-wrapper:hover .theme-btn:nth-child(4) { animation-delay: 0.15s; } /* System */
+
+@keyframes descent-in {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* The visual cue (sliding selection background) - Only visible on hover */
+#theme-indicator {
+  position: absolute;
+  top: 50%;
+  left: 0.25rem; /* By default it's on left if active-light */
+  transform: translateY(-50%);
+  width: 3rem; 
+  height: 3rem;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  transition: left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.2s ease;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Ensure the indicator is centered in the collapsed state if visible (though logic hides it) 
+   But user wants the visual cue round to have same centre as the rounded rectangle.
+   This means in collapsed state, the circle IS the round rectangle, so it's centered.
+   The active button is also centered. */
+   
+#theme-switcher-wrapper:not(:hover) #theme-indicator {
+  display: block;
+  opacity: 0; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+#theme-switcher-wrapper:hover #theme-indicator {
+  opacity: 0.15; /* Subtle background highlight */
+}
+
+/* Active button text color when hovered (since indicator is behind it) */
+#theme-switcher-wrapper:hover .theme-btn.active {
+  color: var(--text-color); /* Keep it readable against subtle background */
+}
+
+/* Indicator Positioning Logic based on class added by JS */
+/* light is first button? JS order: Light, Dark, System */
+/* DOM order: Indicator, Light, Dark, System */
+
+/* If active-light */
+#theme-switcher-wrapper.active-light:hover #theme-indicator {
+  left: 0.25rem;
+}
+
+/* If active-dark - It should be centered in the expanded container */
+#theme-switcher-wrapper.active-dark:hover #theme-indicator {
+  /* Container width 10.5rem. Center is 5.25rem.
+     Indicator width 3rem. Half is 1.5rem.
+     Left should be 5.25 - 1.5 = 3.75rem. 
+     Wait, padding/border? Container has no padding. 
+     But buttons are 3.5rem wide.
+     Active dark is the 2nd button (index 1).
+     Start at 3.5rem.
+     Indicator center should match button center.
+     Button 2 starts at 3.5rem, center at 3.5 + 1.75 = 5.25.
+     Indicator center 5.25. Left = 5.25 - 1.5 = 3.75rem. 
+     Correct. */
+  left: 3.75rem; 
+}
+
+/* If active-system */
+#theme-switcher-wrapper.active-system:hover #theme-indicator {
+  /* Button 3 starts at 7rem. Center at 8.75.
+     Left = 8.75 - 1.5 = 7.25rem. 
+     Correct. */
+  left: 7.25rem; 
+}
+
+.theme-btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none; /* Changed from currentColor to none to respect the SVG's design (outline style) */
+  stroke: currentColor;
+  stroke-width: 2px;
+}

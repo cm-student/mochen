@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    /* MiSans Font Faces */
+    @font-face {
+      font-family: 'MiSans-Bold';
+      src: url('assets/fonts/MiSans-Bold.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MiSans-Regular';
+      src: url('assets/fonts/MiSans-Regular.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MiSans-Light';
+      src: url('assets/fonts/MiSans-Light.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Light.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+  <title>Mo CHEN's Website</title>
+  <style>
+    /* Reset & Global */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-family: 'MiSans-Regular', sans-serif; }
+    body { overflow-x: hidden; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      min-height: 50px;
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+    }
+    nav .logo {
+      font-family: 'MiSans-Bold', sans-serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      white-space: nowrap;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      white-space: nowrap;
+      font-family: 'MiSans-Regular', sans-serif;
+    }
+    nav ul li {
+      display: flex;
+      align-items: center;
+    }
+    nav .cta a {
+      padding: 0.5rem 1rem;
+      background-color: #4a5e26;
+      color: #fff;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 500;
+      font-family: 'MiSans-Bold', sans-serif;
+    }
+
+    /* Blog CTA Button */
+    .cta-button {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(45deg, #4a5e26, #6fa350);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-family: 'MiSans-Bold', sans-serif;
+    }
+    .cta-button:hover {
+      background: linear-gradient(45deg, #6fa350, #4a5e26);
+      transform: translateY(-2px);
+    }
+
+    /* Language Switch Button */
+    nav .lang-switch {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    nav .lang-switch svg {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      stroke: #333;
+      fill: none;
+      stroke-width: 2;
+      transition: stroke 0.3s ease;
+    }
+
+    [data-theme="dark"] nav .lang-switch svg {
+      stroke: #f0f0f0;
+    }
+    
+    [data-theme="dark"] nav.scrolled .lang-switch svg {
+      stroke: #f0f0f0;
+    }
+
+    /* Keep nav links and icon on one line */
+    nav > .container {
+      flex: 1;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: auto;
+      margin: 0;
+      border: 2px solid transparent;
+      transition: border-color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+      transition: all 0.5s ease;
+    }
+
+    /* Sections */
+    section:not(#hero) {
+      padding: 5rem 2rem;
+    }
+    section:nth-of-type(even) {
+      background-color: #f9f9f9;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-family: 'MiSans-Bold', sans-serif;
+    }
+    section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      font-family: 'MiSans-Light', sans-serif;
+    }
+
+    /* Centered fluid container */
+    .container {
+      width: 100%;
+      max-width: none;
+      padding: 0 2rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Self-Introduction section */
+    #Introduction .container {
+      text-align: left;
+    }
+    /* Center the Self-Introduction title */
+    #Introduction h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    /* Left-align Projects section */
+    #Projects .container {
+      text-align: left;
+    }
+
+    /* Center the Projects title */
+    #Projects h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    /* Projects Section Card Layout */
+    .project-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: 1px solid rgba(0,0,0,0.03);
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Projects Header Styling */
+    #Projects #para-projects, 
+    #Projects #para-projects-2,
+    #Projects #para-projects-3 {
+      font-family: 'MiSans-Bold', sans-serif;
+      font-weight: bold;
+      margin-bottom: 0; /* Remove bottom margin to sit flush with folded content */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      padding-bottom: 0.5rem; /* Add some breathing room */
+      color: inherit; /* Ensure it inherits color from parent (card or body) */
+    }
+    
+    /* Dark Mode Support for Projects */
+    [data-theme="dark"] .project-card {
+      background: #2a2a2a; /* Dark card background */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    [data-theme="dark"] #Projects #para-projects-title {
+      color: #98c379; /* Logther green for dark mode */
+    }
+
+    [data-theme="dark"] #Projects .project-list li {
+      color: #ccc; /* Lighter text for list items */
+    }
+
+    [data-theme="dark"] #Projects .project-list li strong {
+      color: #fff; /* White text for strong items */
+    }
+
+    /* Chevron Icon */
+    #Projects #para-projects::after, 
+    #Projects #para-projects-2::after,
+    #Projects #para-projects-3::after {
+      content: '';
+      display: inline-block;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-right: 2px solid #4a5e26;
+      border-bottom: 2px solid #4a5e26;
+      transform: rotate(45deg);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+
+    [data-theme="dark"] #Projects #para-projects::after,
+    [data-theme="dark"] #Projects #para-projects-2::after,
+    [data-theme="dark"] #Projects #para-projects-3::after {
+       border-color: #98c379;
+    }
+
+    /* Active State for Chevron */
+    #Projects p.active::after {
+      transform: rotate(225deg);
+      margin-top: 5px;
+    }
+
+    /* Foldable Content Container */
+    .project-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease-out;
+    }
+
+    .project-details.open {
+      opacity: 1;
+      margin-top: 1rem;
+    }
+
+    /* Inner Content Styling */
+    #Projects #para-projects-title {
+      font-family: 'MiSans-Regular', sans-serif;
+      font-weight: 600;
+      color: #4a5e26;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    #Projects .project-list {
+      margin-left: 1.5rem;
+      list-style-type: disc;
+    }
+
+    #Projects .project-list li {
+      margin-bottom: 0.8rem;
+      font-family: 'MiSans-Light', sans-serif;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    #Projects .project-list li strong {
+      font-family: 'MiSans-Regular', sans-serif;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* Scrolled Navbar */
+    nav.scrolled {
+      justify-content: space-between;
+      background-color: transparent;
+      backdrop-filter: none;
+    }
+    nav.scrolled .container {
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
+      border-radius: 9999px;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      border: 2px solid rgba(255,255,255,0.4);
+      box-shadow: 0 0 20px rgba(82, 82, 82, 0.5);
+      transition: all 0.5s ease;
+    }
+    nav.scrolled .logo,
+    nav.scrolled .lang-switch {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    /* Split hero with video on left and image on right */
+    #hero {
+      position: relative;
+      overflow: hidden;     
+      padding: 0;
+    }
+    .hero-wrapper {
+      display: flex;
+      width: 100vw;
+      height: 120vh;
+      margin: 0;
+    }
+    .hero-left,
+    .hero-right {
+      flex: 1;
+      position: relative;
+    }
+    .hero-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 5%;
+    }
+    .hero-left .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    /*
+    .hero-left #hero-title {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      padding: 2rem;
+      font-size: 4rem;
+    }
+    */
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      will-change: transform;
+      transform: translateY(0);
+      transition: transform 0.1s ease-out;
+    }
+    @media (max-width: 768px) {
+      .hero-wrapper {
+        flex-direction: column;
+      }
+      .hero-left,
+      .hero-right {
+        height: 50vh;
+      }
+      /*
+      .hero-left #hero-title {
+        font-size: 2.5rem;
+      }
+      */
+    }
+
+    #Introduction {
+      margin-top: -50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero text styling */
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      text-align: left;
+    }
+    .script-text {
+      font-family: 'Pacifico', cursive !important;
+      font-size: 2.5rem;
+      color: #104b25;
+      margin: 0;
+      margin-bottom: 0.5rem;
+    }
+    .name-text {
+      font-family: 'MiSans-Bold', sans-serif;
+      font-size: 6rem;
+      line-height: 1;
+      font-weight: bold;
+      color: #fff;
+      margin: 0.25rem 0;
+    }
+    .role-text {
+      font-family: 'MiSans-Light', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: #fff;
+      text-transform: uppercase;
+      margin: 0.5rem 0 0;
+    }
+
+    /* When viewport is narrow, let the container sit in normal flow so it won't cover logo/toggle */
+    @media (max-width: 900px) {
+      nav > .container {
+        position: static;
+        top: auto;
+        left: auto;
+        transform: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/theme-switcher.css">
+</head>
+<body>
+
+  <nav>
+    <div class="logo" id="logo">Mo CHEN</div>
+    <div class="container">
+      <ul>
+        <li><a id="nav-intro" href="#Introduction">Self-Introduction</a></li>
+        <li><a id="nav-project" href="#Projects">Project</a></li>
+        <li><a id="nav-blog" href="#Blog">Blog</a></li>
+        <li><a id="nav-hobbies" href="#Hobbies">Hobbies</a></li>
+        <li><a id="nav-contact" href="#contact">Contact Me</a></li>
+      </ul>
+    </div>
+    <button class="lang-switch" aria-label="Switch Language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 0 20"/>
+        <path d="M12 2a15.3 15.3 0 0 0 0 20"/>
+      </svg>
+    </button>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-wrapper">
+      <div class="hero-left">
+        <video autoplay muted loop playsinline class="bg-video">
+          <source src="assets/video_hero.mp4" type="video/mp4" />
+        </video>
+      <div class="hero-text">
+        <p id="hero-greeting" class="script-text">Hey, I'm</p>
+        <h1 id="hero-name1" class="name-text">Mo</h1>
+        <h1 id="hero-name2" class="name-text">CHEN</h1>
+        <p id="hero-role" class="role-text">Undergraduate in ECE</p>
+      </div>
+      </div>
+      <div class="hero-right">
+        <img src="assets/photo_hero.jpg" alt="Hero Image" />
+      </div>
+    </div>
+  </section>
+
+  <section id="Introduction">
+    <div class="container">
+    <h2 id="heading-intro">Self-Introduction</h2>
+    <p id="para-intro-1">I'm Mo CHEN, a year-two student in the Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen). I majored in Electronic and Computer Engineering, Electronic Engineering Stream.</p>
+    <p id="para-intro-2"> My interest includes Large Language Model (LLM), Embodied Intelligence, and Integrated Circuit (IC) Design.</p>
+    </div>
+  </section>
+
+  <section id="Projects">
+    <div class="container">
+    <h2 id="heading-projects">Project Experiences</h2>
+    <div class="project-card">
+      <p id="para-projects">2024.12 - Present Undergraduate RA in Professor Zhao Junhua's Research Group | UGRA</p>
+      <div class="project-details">
+        <p id="para-projects-title">Project "Automatic Modeling Agent Based on LLM and LEAN"</p>
+        <ul class="project-list">
+          <li id="li-project-1"><strong>Requirements Definition & System Design:</strong> Addressed the pain points of "high entry barriers in traditional methods and severe hallucinations in Zero-shot LLMs" for power system modeling by designing and implementing PrimeUC—an LLM-based Unit Commitment Optimization Agent. Defined a technical roadmap based on RAG + Agentic-RL, utilizing LEAN-based formal mathematical expressions to balance the creativity of LLM generation with the rigor of power constraints.</li>
+          <li id="li-project-2"><strong>Evaluation System & Product Iteration:</strong> Established an evaluation benchmark based on the NREL-118 standard system. Through multi-round testing and iteration, improved the executability rate of modeling code for complex Unit Commitment problems by approximately 40%, validating the product's feasibility in industrial-grade scenarios.</li>
+          <li id="li-project-3"><strong>Multi-Agent Collaboration Optimization:</strong> Led the optimization of collaboration mechanisms for the EngiAgent multi-agent system. Analyzed communication deadlocks between agents and reconstructed the interaction logic, increasing the task success rate by approximately 15%.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <p id="para-projects-2">2025.06 - 2025.08 AI Algorithm Intern, Shenzhen LeZhiYuan Technology Partnership</p>
+      <div class="project-details">
+        <ul class="project-list">
+          <li id="li-project-2-1"><strong>Edge-Side Model Deployment:</strong> Addressed real-time voice interaction needs in complex hospital acoustic environments by researching lightweight CNN architectures and proposing an edge-side VAD solution based on structured pruning. Trained and compressed a MobileNetV2 model, achieving a high F1-Score of 0.92 in high-noise conditions while keeping inference latency under 500ms, meeting the product's real-time response metrics for edge devices.</li>
+          <li id="li-project-2-2"><strong>Product Planning & Technical Pre-research:</strong> Led the technical pre-research for an Emotional Multimodal LLM for the company's "Feiyan Robot" product. Produced a deep-dive report covering competitive analysis, technical feasibility, and deployment pathways. Key conclusions were adopted by the company, defining the differentiated technical roadmap for the subsequent emotional interaction module.</li>
+          <li id="li-project-2-3"><strong>Competitive Analysis & Technical Research:</strong> Deconstructed leading domestic and international products like Character.AI and Xingye, analyzing their personalization implementation paths from Prompt Engineering to SFT/RL. Conducted quantitative F1-Score evaluations on emotional recognition modules and produced a comprehensive research report outlining an MVP iteration roadmap that includes Emotional TTS and full-duplex dialogue.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <p id="para-projects-3"> 2025.12 - 2026.02 Project Lead | AcAgent: Multi-Agent Academic Decision Assistant | CUHK-Shenzhen URA Funded Project</p>
+      <div class="project-details">
+        <ul class="project-list">
+          <li id="li-project-3-1"><strong>User Scenario Closed-Loop:</strong> Deeply explored user pain points such as "difficulty in course selection and high information asymmetry" among students, and designed a multi-agent academic decision assistant based on LLM. Planned a complete product function Roadmap from "Intent Recognition" to "Personalized Recommendation" and "Schedule Generation".</li>
+          <li id="li-project-3-2"><strong>Demand Insight & Product Design:</strong> Addressing pain points of "information asymmetry in course selection and long decision-making chains", led product definition and functional planning. Designed and advanced a complete Roadmap from "Intent Parsing", "Scheme Recommendation" to "Structured Schedule Generation", ensuring product logic covers the full scenario of academic decision-making.</li>
+          <li id="li-project-3-3"><strong>Multi-Agent Architecture Design:</strong> Designed a collaborative Multi-Agent architecture containing an Analyzer, Planner, and Verifier, realizing a full-link automation from unstructured user intent recognition to personalized academic suggestions and structured schedule generation.</li>
+          <li id="li-project-3-4"><strong>Data Asset Construction:</strong> Addressing the issue of answer accuracy, led the construction of a vertical domain knowledge base containing academic rules, course schedules, and course evaluations (implemented via a RAG retrieval system based on LangChain and vector databases), solving the knowledge gap of general large models in specific campus scenarios.</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="Blog">
+    <div class="container">
+    <h2 id="heading-blog">Blog</h2>
+    <p id="para-blog">Read the blog article below.</p>
+    <a id="btn-blog" class="cta-button" href="blog.html">Read Blog</a>
+    </div>
+  </section>
+
+  <section id="Hobbies">
+    <div class="container">
+      <h2 id="heading-hobbies">Hobbies</h2>
+      <p id="para-hobbies">In my spare time, I enjoy taking photos, shooting videos, and exploring the world.</p>
+      <a id="btn-hobbies" class="cta-button" href="hobbies.html">Explore My Hobbies</a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+    <h2 id="heading-contact">Contact Me</h2>
+    <p id="para-contact">Contact me via email</p>
+    <p id="para-contact-email">Email:mochen@cuhk.edu.cn</p>
+    </div>
+  </section>
+
+  <script>
+    const translations = {
+      en: {
+        logo: 'Mo CHEN',
+        'nav-intro': 'Self-Introduction',
+        'nav-project': 'Projects',
+        'nav-blog': 'Blog',
+        'nav-hobbies': 'Hobbies',
+        'nav-contact': 'Contact Me',
+        'heading-intro': 'Self-Introduction',
+        'para-intro-1': "I'm Mo CHEN, a year-two student in the Chinese University of Hong Kong, Shenzhen (CUHK-Shenzhen). I majored in Electronic and Computer Engineering, Electronic Engineering Stream.",
+        'para-intro-2': 'My interest includes Large Language Model (LLM), Embodied Intelligence, and Integrated Circuit (IC) Design.',
+        'heading-projects': 'Projects Experience',
+        'para-projects': "2024.12 - Present Undergraduate RA in Professor Zhao Junhua's Research Group | UGRA",
+        'para-projects-title': 'Project "Automatic Modeling Agent Based on LLM and LEAN"',
+        'li-project-1': '<strong>Requirements Definition & System Design:</strong> Addressed the pain points of "high entry barriers in traditional methods and severe hallucinations in Zero-shot LLMs" for power system modeling by designing and implementing PrimeUC—an LLM-based Unit Commitment Optimization Agent. Defined a technical roadmap based on RAG + Agentic-RL, utilizing LEAN-based formal mathematical expressions to balance the creativity of LLM generation with the rigor of power constraints.',
+        'li-project-2': "<strong>Evaluation System & Product Iteration:</strong> Established an evaluation benchmark based on the NREL-118 standard system. Through multi-round testing and iteration, improved the executability rate of modeling code for complex Unit Commitment problems by approximately 40%, validating the product's feasibility in industrial-grade scenarios.",
+        'li-project-3': '<strong>Multi-Agent Collaboration Optimization:</strong> Led the optimization of collaboration mechanisms for the EngiAgent multi-agent system. Analyzed communication deadlocks between agents and reconstructed the interaction logic, increasing the task success rate by approximately 15%.',
+        'para-projects-2': '2025.06 - 2025.08 AI Algorithm Intern, Shenzhen LeZhiYuan Technology Partnership',
+        'li-project-2-1': "<strong>Edge-Side Model Deployment:</strong> Addressed real-time voice interaction needs in complex hospital acoustic environments by researching lightweight CNN architectures and proposing an edge-side VAD solution based on structured pruning. Trained and compressed a MobileNetV2 model, achieving a high F1-Score of 0.92 in high-noise conditions while keeping inference latency under 500ms, meeting the product's real-time response metrics for edge devices.",
+        'li-project-2-2': '<strong>Product Planning & Technical Pre-research:</strong> Led the technical pre-research for an Emotional Multimodal LLM for the company\'s "Feiyan Robot" product. Produced a deep-dive report covering competitive analysis, technical feasibility, and deployment pathways. Key conclusions were adopted by the company, defining the differentiated technical roadmap for the subsequent emotional interaction module.',
+        'li-project-2-3': '<strong>Competitive Analysis & Technical Research:</strong> Deconstructed leading domestic and international products like Character.AI and Xingye, analyzing their personalization implementation paths from Prompt Engineering to SFT/RL. Conducted quantitative F1-Score evaluations on emotional recognition modules and produced a comprehensive research report outlining an MVP iteration roadmap that includes Emotional TTS and full-duplex dialogue.',
+        'para-projects-3': '2025.12 - 2026.02 Project Lead | AcAgent: Multi-Agent Academic Decision Assistant | CUHK-Shenzhen URA Funded Project',
+        'li-project-3-1': '<strong>User Scenario Closed-Loop:</strong> Deeply explored user pain points such as "difficulty in course selection and high information asymmetry" among students, and designed a multi-agent academic decision assistant based on LLM. Planned a complete product function Roadmap from "Intent Recognition" to "Personalized Recommendation" and "Schedule Generation".',
+        'li-project-3-2': '<strong>Demand Insight & Product Design:</strong> Addressing pain points of "information asymmetry in course selection and long decision-making chains", led product definition and functional planning. Designed and advanced a complete Roadmap from "Intent Parsing", "Scheme Recommendation" to "Structured Schedule Generation", ensuring product logic covers the full scenario of academic decision-making.',
+        'li-project-3-3': '<strong>Multi-Agent Architecture Design:</strong> Designed a collaborative Multi-Agent architecture containing an Analyzer, Planner, and Verifier, realizing a full-link automation from unstructured user intent recognition to personalized academic suggestions and structured schedule generation.',
+        'li-project-3-4': '<strong>Data Asset Construction:</strong> Addressing the issue of answer accuracy, led the construction of a vertical domain knowledge base containing academic rules, course schedules, and course evaluations (implemented via a RAG retrieval system based on LangChain and vector databases), solving the knowledge gap of general large models in specific campus scenarios.',
+        'heading-blog': 'Blog',
+        'para-blog': 'Read the blog article below.',
+        'btn-blog': 'Read Blog',
+        'heading-contact': 'Contact Me',
+        'para-contact': 'Contact me via email',
+        'para-contact-email': 'email: mochen@link.cuhk.edu.cn',
+        'hero-greeting': "Hey, I'm",
+        'hero-name1': 'Mo',
+        'hero-name2': 'CHEN',
+        'hero-role': 'Undergraduate in ECE',
+        'heading-hobbies': 'Hobbies',
+        'para-hobbies': 'In my spare time, I enjoy taking photos, shooting videos, and exploring the world.',
+        'btn-hobbies': 'Explore My Hobbies',
+      },
+      zh: {
+        logo: 'Mo CHEN',
+        'nav-intro': '自我介绍',
+        'nav-project': '项目经验',
+        'nav-blog': '博客',
+        'nav-hobbies': '兴趣爱好',
+        'nav-contact': '联系我',
+        'heading-intro': '自我介绍',
+        'para-intro-1': '我是陈默，一名香港中文大学（深圳）的一年级学生，现就读于电子与计算机工程专业，电子工程方向。',
+        'para-intro-2': '我的兴趣包括大语言模型 (LLM) 、具身智能和集成电路设计。',
+        'heading-projects': '项目经验',
+        'para-projects': '2024.12 - 至今 赵俊华教授课题组 | UGRA',
+        'para-projects-title': '课题“Automatic Modeling Agent Based on LLM and LEAN”',
+        'li-project-1': '<strong>需求定义与系统设计：</strong>针对电力系统建模中“传统方法门槛高、Zero-shot LLM 幻觉严重”的痛点，设计并落地了 PrimeUC （基于大模型的机组组合优化 Agent）解决方案。定义了基于 RAG + Agentic-RL 的技术路线，通过基于 LEAN 的形式化数学表达，平衡 LLM 生成的创造性与电力约束的严谨性。',
+        'li-project-2': '<strong>评估体系与产品迭代：</strong>构建基于NREL-118 标准系统的评估指标体系（Benchmark），并通过多轮测试迭代，使复杂机组组合（Unit Commitment）问题的建模代码可执行率提升约 40%，验证了产品在工业级场景的可行性。',
+        'li-project-3': '<strong>多 Agent 协作优化：</strong>负责多智能体系统 EngiAgent 的协作机制优化。通过分析 Agent 间的通信死锁问题，重构交互逻辑，任务成功率提高约 15%。',
+        'para-projects-2': '2025.06 - 2025.08, AI 算法实习生, 深圳乐智元科技合伙企业（有限合伙）',
+        'li-project-2-1': '<strong>边缘侧模型落地：</strong>结合医院复杂声学场景下的实时语音交互需求，调研了主流轻量化的 CNN 架构，提出基于结构化剪枝的端侧 VAD 方案。通过训练并压缩 MobileNetV2 模型，在实现高噪环境下 F1-Score 达 0.92 的高识别率同时，成功将推理延迟控制在 500ms 以内，满足了产品在边缘侧的实时响应指标。',
+        'li-project-2-2': '<strong>竞品/产品规划与技术预研：</strong>针对公司“飞燕机器人”产品，独立主导 Emotional Multimodal LLM （情感多模态大模型）的技术预研。产出包含竞品分析、技术可行性及落地路径的深度报告，核心结论被公司采纳，确立了公司后续情感交互模块技术的差异化路线。',
+        'li-project-2-3': '<strong>竞品分析与技术预研：</strong>横向解构 Character.AI、星野等国内外头部产品，拆解其从 Prompt 到 SFT/RL 的个性化实现路径；针对情感识别模块进行 F1-Score 量化测评，产出深度调研报告，梳理包含 Emotional TTS、全双工对话在内的 MVP 迭代路线。',
+        'para-projects-3': '2025.12 - 2026.02 AcAgent: 基于大语言模型的多智能体学业决策助手 | 项目负责人 CUHK-Shenzhen URA 资助项目',
+        'li-project-3-1': '<strong>用户场景闭环：</strong>深入挖掘学生“选课难、信息差大”的用户痛点，设计基于 LLM 的多智能体学业决策助手。规划从“意图识别”到“个性化推荐”再到“课表生成”的完整产品功能 Roadmap。',
+        'li-project-3-2': '<strong>需求洞察&产品设计/用户场景闭环：</strong>针对学生群体“选课信息不对称、决策链路长”的痛点，主导产品定义与功能规划。设计并推进从“意图解析”、“方案推荐”到“结构化课表生成”的完整 Roadmap，确保产品逻辑覆盖学术决策全场景。',
+        'li-project-3-3': '<strong>多智能体架构设计：</strong>设计包含 Analyzer, Planner, Verifier 的多 Agent 协作架构，实现从非结构化用户意图识别到个性化学术建议与结构化课表生成的全链路自动化。',
+        'li-project-3-4': '<strong>数据资产构建：</strong>针对回答准确性问题，主导搭建了包含教务规则、课程时间表与课程评价的垂直领域知识库（通过基于 LangChain 与向量数据库的 RAG 检索系统实现），解决了通用大模型在特定校园场景下的知识缺失问题。',
+        'heading-blog': '博客',
+        'para-blog': '最新的博客文章如下。',
+        'btn-blog': '阅读博客',
+        'heading-contact': '联系我',
+        'para-contact': '通过邮箱联系我',
+        'para-contact-email': 'email: mochen@link.cuhk.edu.cn',
+        'hero-greeting': "Hey, I'm",
+        'hero-name1': 'Mo',
+        'hero-name2': 'CHEN',
+        'hero-role': '电子与计算机工程专业本科生',
+        'heading-hobbies': '兴趣爱好',
+        'para-hobbies': '业余时间，我喜欢摄影、拍摄视频和旅游。',
+        'btn-hobbies': '查看兴趣',
+      }
+    };
+
+    let currentLang = localStorage.getItem('preferred-language') || 'en';
+    const switchBtn = document.querySelector('.lang-switch');
+
+    function applyTranslations() {
+      // Save to local storage
+      localStorage.setItem('preferred-language', currentLang);
+      
+      document.documentElement.lang = currentLang;
+      Object.entries(translations[currentLang]).forEach(([id, text]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = text;
+      });
+    }
+
+    // Apply initial translation
+    applyTranslations();
+
+    switchBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'zh' : 'en';
+      applyTranslations();
+    });
+  </script>
+  <script>
+    window.addEventListener('load', () => {
+      const navEl = document.querySelector('nav');
+      const wrapper = document.querySelector('.hero-wrapper');
+      const navHeight = navEl.offsetHeight;
+      wrapper.style.marginTop = `${navHeight}px`;
+      wrapper.style.height = `calc(120vh - ${navHeight}px)`;
+    });
+  </script>
+  <script>
+    window.addEventListener('scroll', () => {
+      const navEl = document.querySelector('nav');
+      // Trigger scrolled state as soon as user scrolls past the nav height
+      const threshold = navEl.offsetHeight;
+      if (window.scrollY > threshold) {
+        navEl.classList.add('scrolled');
+      } else {
+        navEl.classList.remove('scrolled');
+      }
+      // Parallax effect: photo moves slower than scroll
+      const heroImg = document.querySelector('.hero-right img');
+      heroImg.style.transform = `translateY(${window.scrollY * 0.5}px)`;
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Define list of project header IDs
+      const headerIds = ['para-projects', 'para-projects-2', 'para-projects-3'];
+      
+      headerIds.forEach(id => {
+        const header = document.getElementById(id);
+        if (!header) return;
+
+        // Find the .project-details container which is the sibling in the structure
+        // <div class="project-card"> <p header>... <div details>... </div>
+        let detailsContainer = header.nextElementSibling;
+        
+        if (detailsContainer && detailsContainer.classList.contains('project-details')) {
+          header.addEventListener('click', () => {
+            header.classList.toggle('active');
+            
+            if (detailsContainer.style.maxHeight) {
+                // Currently open, so close it
+                detailsContainer.style.maxHeight = null;
+                detailsContainer.classList.remove('open');
+            } else {
+                // Currently closed, so open it
+                detailsContainer.classList.add('open');
+                detailsContainer.style.maxHeight = detailsContainer.scrollHeight + "px";
+            }
+          });
+        }
+      });
+    });
+  </script>
+  <script src="assets/js/theme-switcher.js"></script>
+</body>
+</html>

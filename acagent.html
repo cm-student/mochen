@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <title>AcAgent - Mo CHEN</title>
+  <style>
+    /* MiSans Font Faces */
+    @font-face {
+      font-family: 'MiSans-Bold';
+      src: url('assets/fonts/MiSans-Bold.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MiSans-Regular';
+      src: url('assets/fonts/MiSans-Regular.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MiSans-Light';
+      src: url('assets/fonts/MiSans-Light.woff2') format('woff2'),
+           url('assets/fonts/MiSans-Light.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Reset & Global */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-family: 'MiSans-Regular', sans-serif; }
+    body { overflow-x: hidden; padding-top: 80px; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      min-height: 50px;
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+    }
+    nav .logo {
+      font-family: 'MiSans-Bold', sans-serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      white-space: nowrap;
+      color: #333;
+    }
+    nav ul {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      white-space: nowrap;
+      font-family: 'MiSans-Regular', sans-serif;
+    }
+    nav ul li {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Center container */
+    nav > .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Keep nav responsive */
+    @media (max-width: 900px) {
+      nav > .container {
+        position: static;
+        width: auto;
+      }
+      nav ul {
+        gap: 1rem;
+      }
+    }
+
+    .content-container {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      height: calc(100vh - 80px); /* Fill screen minus nav height */
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/theme-switcher.css">
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Mo CHEN</div>
+    <div class="container">
+      <ul>
+        <li><a href="index.html#Introduction">Self-Introduction</a></li>
+        <li><a href="index.html#Projects">Project</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="hobbies.html">Hobbies</a></li>
+        <li><a href="index.html#contact">Contact Me</a></li>
+      </ul>
+    </div>
+    <!-- Placeholder for balance or language switch if needed -->
+    <div style="width: 24px;"></div> 
+  </nav>
+
+  <div class="content-container">
+    <iframe id="notion-frame" src="" allowfullscreen></iframe>
+  </div>
+
+  <script src="assets/js/theme-switcher.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const iframe = document.getElementById('notion-frame');
+      const lang = localStorage.getItem('preferred-language') || 'en';
+      
+      const urls = {
+        'zh': 'https://innate-engineer-810.notion.site/ebd//2fcf4dc831738033bc5ddcc811b9cd6f',
+        'en': 'https://innate-engineer-810.notion.site/ebd//2fcf4dc83173804a877edd0a6dfa7143'
+      };
+
+      // Set src based on language, defaulting to English if unknown
+      iframe.src = urls[lang] || urls['en'];
+    });
+  </script>
+</body>
+</html>
